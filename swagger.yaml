@@ -1,18 +1,18 @@
 openapi: 3.0.0
 info:
   description: |
-    Dendrite matrix microservice
+    Matrix  bridge microservice
   version: "1.0.0"
-  title: Dendrite matrix microservice
+  title: Matrix  bridge microservice
 servers:
   # Added by API Auto Mocking Plugin
   - url: https://matrix.mediamagic.ai
   - url: http://127.0.0.1:8080
 tags:
   - name: User
-    description: Dendrite matrix microservice user
+    description: Matrix  bridge microservice user
   - name: Dendrite
-    description: Actions on the dendrite server
+    description: Actions on the Matrix bridge server
   - name: Matterbridge
     description: Actions on the matterbridge server
 paths:
@@ -449,77 +449,6 @@ paths:
 
       security:
         - ApiKeyAuth: []
-  /api/v1/matrix/dendrite/{hostname}/restart:
-    post:
-      tags:
-        - Dendrite
-      summary: restart dendrite server  
-      description: restart dendrite server 
-      deprecated: true
-      parameters:
-        - in: path
-          name: hostname
-          schema:
-            type: string
-            example: company.matrix.mediamagic.ai
-          required: true
-          description: dendrite hostname
-      responses:
-        '200':
-          description: successful server restart
-          content:
-            application/json:
-              schema:
-               $ref: '#/components/schemas/RespStat'
-        '401':
-          description: empty or invalid api key
-          content:
-            application/json:
-              schema:
-               $ref: '#/components/schemas/RespError' 
-        '500':
-          description: internal server error
-          content:
-            application/json:
-              schema:
-               $ref: '#/components/schemas/RespError' 
-
-      security:
-        - ApiKeyAuth: []
-  /configs/org/dendrite.yaml:
-    get:
-      tags:
-        - config
-      summary: dendrite configuration file 
-      deprecated: true
-
-      responses:
-        '200':
-          description: dendrite configuration file
-          content:
-            text/plain:
-              schema:
-                type: string
-        '400':
-          description: bad request
-          content:
-            application/json:
-              schema:
-               $ref: '#/components/schemas/RespError' 
-        '401':
-          description: empty or invalid api key
-          content:
-            application/json:
-              schema:
-               $ref: '#/components/schemas/RespError' 
-        '500':
-          description: internal server error
-          content:
-            application/json:
-              schema:
-               $ref: '#/components/schemas/RespError' 
-      security:
-       - ApiKeyAuth: []
   /api/v1/matrix/dendrite/{hostname}/log:
      get:
       tags:
@@ -897,49 +826,6 @@ paths:
                $ref: '#/components/schemas/RespError' 
       security:
         - ApiKeyAuth: []
-  /api/v1/matrix/matterbridge/{network}/restart:
-    post:
-      tags:
-        - Matterbridge
-      summary: restart  matterbridge server
-      description: restart  matterbridge server
-      deprecated: true
-      parameters:
-        - in: path
-          name: network
-          schema:
-            type: string
-            example: slack-demo-workspace
-          required: true
-          description:  matterbridge network name
-      responses:
-        '200':
-          description: successful matterbridge server restart
-          content:
-            application/json:
-              schema:
-               $ref: '#/components/schemas/RespStat'
-        '400':
-          description: bad request
-          content:
-            application/json:
-              schema:
-               $ref: '#/components/schemas/RespError' 
-        '401':
-          description: empty or invalid api key
-          content:
-            application/json:
-              schema:
-               $ref: '#/components/schemas/RespError' 
-        '500':
-          description: internal server error
-          content:
-            application/json:
-              schema:
-               $ref: '#/components/schemas/RespError' 
-
-      security:
-        - ApiKeyAuth: []
   /api/v1/matrix/matterbridge/{network}/chat-log:
      get:
       tags:
@@ -1070,41 +956,6 @@ paths:
                $ref: '#/components/schemas/RespError' 
       security:
         - ApiKeyAuth: []
-  /configs/org/{network}/matterbridge.toml:
-    get:
-      tags:
-        - config
-      summary: matterbridge configuration file 
-      deprecated: true
-      parameters:
-        - in: path
-          name: network
-          schema:
-            type: string
-            example: slacks-company
-            description: matterbridge network name
-          required: true
-      responses:
-        '200':
-          description: matterbridge configuration file 
-          content:
-            text/plain:
-              schema:
-                type: string
-        '401':
-          description: empty or invalid api key
-          content:
-            application/json:
-              schema:
-               $ref: '#/components/schemas/RespError' 
-        '500':
-          description: internal server error
-          content:
-            application/json:
-              schema:
-               $ref: '#/components/schemas/RespError' 
-      security:
-       - ApiKeyAuth: []
 components:
   schemas:
     RespStat:
